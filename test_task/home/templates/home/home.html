@@ -1,0 +1,40 @@
+{% extends 'home/layout.html' %}
+
+{% block title %}
+    Home page
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <h1>Дані користувача в телеграм</h1>
+        <table>
+            <tr>
+                <td>
+                    Ім'я користувача:
+                </td>
+                <td>
+                    {{ tg_user.name }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Username:
+                </td>
+                <td>
+                    {{ tg_user.username }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    User-id:
+                </td>
+                <td>
+                    {{ tg_user.user_id }}
+                </td>
+            </tr>
+        </table>
+        <button><a href="https://t.me/{{ tg_user.username }}">Телеграм</a></button>
+        <button><a href="{% url 'admin:index' %}">Адмінка</a></button>
+        <button><a href="{% url 'logout' %}">Вийти з акаунта</a></button>
+    </div>
+{% endblock %}

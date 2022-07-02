@@ -1,0 +1,24 @@
+{% extends 'home/layout.html' %}
+
+{% block title %}
+    Вхід
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="authentication-form">
+        <form method="post">
+            <div class="form-error">
+                {{ form.non_field_errors }}
+            </div>
+            {% for f in form %}
+            <div class="authentication-form-item">
+                {{ f }}
+            </div>
+            {% csrf_token %}
+            {% endfor %}
+            <button class="authentication-button" type="submit">Увійти</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
