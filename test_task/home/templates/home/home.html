@@ -33,7 +33,11 @@
                 </td>
             </tr>
         </table>
-        <button><a href="https://t.me/{{ tg_user.username }}">Телеграм</a></button>
+        {% if tg_user.username != 'unknown'%}
+            <button><a href="https://t.me/{{ tg_user.username }}">Телеграм</a></button>
+            {% else %}
+            <h1>У користувача немає посилання на телеграм</h1>
+        {% endif %}
         <button><a href="{% url 'admin:index' %}">Адмінка</a></button>
         <button><a href="{% url 'logout' %}">Вийти з акаунта</a></button>
     </div>
