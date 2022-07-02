@@ -7,36 +7,42 @@
 {% block content %}
     <div class="content">
         <h1>Дані користувача в телеграм</h1>
-        <table>
-            <tr>
-                <td>
-                    Ім'я користувача:
-                </td>
-                <td>
-                    {{ tg_user.name }}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Username:
-                </td>
-                <td>
-                    {{ tg_user.username }}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    User-id:
-                </td>
-                <td>
-                    {{ tg_user.user_id }}
-                </td>
-            </tr>
-        </table>
-        {% if tg_user.username != 'unknown'%}
-            <button><a href="https://t.me/{{ tg_user.username }}">Телеграм</a></button>
+        {% if tg_user %}
+            <table>
+                <tr>
+                    <td>
+                        Ім'я користувача:
+                    </td>
+                    <td>
+                        {{ tg_user.name }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Username:
+                    </td>
+                    <td>
+                        {{ tg_user.username }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        User-id:
+                    </td>
+                    <td>
+                        {{ tg_user.user_id }}
+                    </td>
+                </tr>
+            </table>
+            {% if tg_user.username != 'unknown'%}
+                <button><a href="https://t.me/{{ tg_user.username }}">Телеграм</a></button>
             {% else %}
-            <h1>У користувача немає посилання на телеграм</h1>
+                <h1>У користувача немає посилання на телеграм</h1>
+            {% endif %}
+        {% else %}
+            {% if error %}
+                <h1>{{ error }}</h1>
+            {% endif %}
         {% endif %}
         <button><a href="{% url 'admin:index' %}">Адмінка</a></button>
         <button><a href="{% url 'logout' %}">Вийти з акаунта</a></button>

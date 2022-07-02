@@ -1,6 +1,6 @@
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 from rest_framework import generics
@@ -26,10 +26,17 @@ class LoginUser(LoginView):
 class Home(ListView):
     model = TelegramUser
     template_name = 'home/home.html'
-    context_object_name = 'tg_user'
 
-    def get_queryset(self):
-        return self.model.objects.get(site_user__id=self.request.user.id)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if self.model.objects.filter(site_user__id=self.request.user.id).exists():
+            context['tg_user'] = self.model.objects.get(site_user__id=self.request.user.id)
+        else:
+            context['error'] = "Телеграм користувач за даним акаунтом не зареєстрований"
+            print(context['error'])
+
+        return context
 
 
 def logout_user(request):
